@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gap between the shutter and the bottom system inset. Deliberately
+         generous rather than hugging the edge, so the shutter sits under a
+         thumb's natural resting point when holding the phone one-handed.
+         Everything above (mode bar, zoom ruler) is chained off this via
+         constraintBottom_toTopOf, so raising this one value lifts the whole
+         cluster as a rigid group and their internal spacing never changes. -->
+    <dimen name="shutter_margin">170dp</dimen>
+</resources>

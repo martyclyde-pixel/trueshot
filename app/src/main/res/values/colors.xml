@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#FFD8C8</color>
+    <color name="shutter_fill">#FFFFFFFF</color>
+    <color name="record_fill">#FFE5484D</color>
+    <color name="chrome">#CCFFFFFF</color>
+    <color name="scrim">#66000000</color>
+    <color name="ic_launcher_background">#101012</color>
+</resources>

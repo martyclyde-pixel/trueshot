@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">TruShot</string>
+
+    <string name="mode_photo">PHOTO</string>
+    <string name="mode_video">VIDEO</string>
+
+    <string name="aspect_full">FULL</string>
+    <string name="aspect_3_4">3:4</string>
+    <string name="aspect_1_1">1:1</string>
+    <string name="aspect_4_5">4:5</string>
+
+    <string name="cd_shutter">Take photo</string>
+    <string name="cd_record">Start or stop recording</string>
+    <string name="cd_flip">Switch camera</string>
+    <string name="cd_flash">Flash mode</string>
+    <string name="cd_gallery">Open gallery</string>
+    <string name="cd_settings">Settings</string>
+
+    <string name="flash_off">Flash off</string>
+    <string name="flash_auto">Flash auto</string>
+    <string name="flash_on">Flash on</string>
+
+    <string name="saved_photo">Saved to DCIM/TrueShot</string>
+    <string name="saved_photo_with_raw">Saved photo (RAW backed up privately)</string>
+    <string name="saved_photo_with_raw_gallery">Saved JPEG + DNG to DCIM/TrueShot</string>
+    <string name="save_failed">Could not write to the gallery</string>
+
+    <string name="settings_title">RAW files</string>
+    <string name="raw_private_option">Keep RAW private (recommended)</string>
+    <string name="raw_gallery_option">Also save RAW to the gallery</string>
+    <string name="saved_video">Video saved to DCIM/TrueShot</string>
+    <string name="video_discarded">Clip too short — discarded</string>
+    <string name="record_failed">Could not start recording on this device</string>
+
+    <string name="permission_rationale">TrueShot needs the camera to take photos, and the microphone to record sound with video.</string>
+    <string name="permission_denied">Camera permission is required. Enable it in Settings to continue.</string>
+    <string name="no_camera">No usable camera was found on this device.</string>
+    <string name="raw_unavailable">RAW unavailable on this lens — saving neutral JPEG only</string>
+    <string name="no_gallery_app">No gallery app found</string>
+</resources>

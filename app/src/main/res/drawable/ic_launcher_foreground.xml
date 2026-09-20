@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Aperture ring: a lens, not a camera body — the click-stop ticks read as
+         hardware rather than a literal camera pictogram. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD8C8"
+        android:strokeWidth="9"
+        android:pathData="M76,54 A22,22 0 1,0 32,54 A22,22 0 1,0 76,54" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFD8C8"
+        android:strokeWidth="9"
+        android:strokeLineCap="round"
+        android:pathData="M54,28 L54,20 M31.5,67 L24.6,71 M76.5,67 L83.4,71" />
+</vector>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!-- Preview. Letterboxed to the sensor's aspect ratio so nothing is
+         cropped: what fills this view is exactly the framing that gets saved. -->
+    <com.trueshot.camera.ui.AutoFitSurfaceView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Dims whatever the selected aspect ratio will crop away on save, so the
+         undimmed center always matches the saved file exactly. Sized to match
+         the preview's own resolved bounds — see AspectMaskView's doc. -->
+    <com.trueshot.camera.ui.AspectMaskView
+        android:id="@+id/aspectMask"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/preview"
+        app:layout_constraintBottom_toBottomOf="@id/preview"
+        app:layout_constraintStart_toStartOf="@id/preview"
+        app:layout_constraintEnd_toEndOf="@id/preview" />
+
+    <View
+        android:id="@+id/focusRing"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/focus_ring"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
+    <!-- Top chrome. Padded by the status bar / cutout inset at runtime. -->
+    <FrameLayout
+        android:id="@+id/topChrome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/flashButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/chrome_button"
+            android:contentDescription="@string/cd_flash"
+            android:src="@drawable/ic_flash_off" />
+
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/chrome_button"
+            android:contentDescription="@string/cd_settings"
+            android:src="@drawable/ic_settings" />
+
+        <TextView
+            android:id="@+id/statusPill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/pill"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="5dp"
+            android:drawableStart="@drawable/ic_trushot_mark"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/chrome"
+            android:textSize="14sp"
+            android:fontFamily="@font/baloo2"
+            android:fontVariationSettings="'wght' 700"
+            android:letterSpacing="0"
+            android:maxWidth="220dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="@string/app_name" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/recordTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/pill"
+        android:paddingStart="12dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/record_fill"
+        android:textSize="13sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/topChrome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="0:12"
+        tools:visibility="visible" />
+
+    <!-- Bottom chrome. A solid backing panel, like the stock app's, rather
+         than floating controls directly over the live preview — this is
+         purely cosmetic and doesn't touch what's actually framed/captured,
+         which still extends underneath it edge to edge (see AutoFitSurfaceView). -->
+    <View
+        android:id="@+id/bottomScrim"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        app:layout_constraintTop_toTopOf="@id/zoomRuler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.trueshot.camera.ui.ZoomRuler
+        android:id="@+id/zoomRuler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/modeBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/modeBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@id/shutterButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/modePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="8dp"
+            android:text="@string/mode_photo"
+            android:textSize="12sp"
+            android:letterSpacing="0.12"
+            android:textColor="@color/accent" />
+
+        <TextView
+            android:id="@+id/modeVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="8dp"
+            android:text="@string/mode_video"
+            android:textSize="12sp"
+            android:letterSpacing="0.12"
+            android:textColor="@color/chrome" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/shutterButton"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="@dimen/shutter_margin"
+        android:background="@drawable/shutter_photo"
+        android:contentDescription="@string/cd_shutter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/flipButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/chrome_button"
+        android:contentDescription="@string/cd_flip"
+        android:src="@drawable/ic_flip"
+        app:layout_constraintTop_toTopOf="@id/shutterButton"
+        app:layout_constraintBottom_toBottomOf="@id/shutterButton"
+        app:layout_constraintStart_toEndOf="@id/shutterButton"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Thumbnail of the last photo taken; tapping it opens the gallery. -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/galleryButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@color/scrim"
+        android:scaleType="centerCrop"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/cd_gallery"
+        app:shapeAppearanceOverlay="@style/CircleImage"
+        app:strokeColor="@color/chrome"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toTopOf="@id/shutterButton"
+        app:layout_constraintBottom_toBottomOf="@id/shutterButton"
+        app:layout_constraintEnd_toStartOf="@id/shutterButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Saved-photo shape. Full defaults to the screen's own ratio (fills the
+         viewfinder like stock); 3:4 matches the sensor's native shape exactly
+         so it never touches a pixel — see AspectRatio and JpegCropper. -->
+    <LinearLayout
+        android:id="@+id/aspectBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="22dp"
+        app:layout_constraintTop_toBottomOf="@id/shutterButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/aspectFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/aspect_full"
+            android:textSize="12sp"
+            android:letterSpacing="0.08"
+            android:textColor="@color/accent" />
+
+        <TextView
+            android:id="@+id/aspect34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/aspect_3_4"
+            android:textSize="12sp"
+            android:letterSpacing="0.08"
+            android:textColor="@color/chrome" />
+
+        <TextView
+            android:id="@+id/aspect11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/aspect_1_1"
+            android:textSize="12sp"
+            android:letterSpacing="0.08"
+            android:textColor="@color/chrome" />
+
+        <TextView
+            android:id="@+id/aspect45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:text="@string/aspect_4_5"
+            android:textSize="12sp"
+            android:letterSpacing="0.08"
+            android:textColor="@color/chrome" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
